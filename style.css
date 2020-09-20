@@ -1,0 +1,79 @@
+@import "reset.css";
+body {
+    background-color:#f6f9fc;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top:30px;
+}
+.canvas{
+    
+    width:800px;
+    height:600px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0px 0px 5px 3px rgba(189, 206, 185, 0.486);
+    margin-bottom : 40px;
+}
+
+.canvas_colors{
+    display : flex;
+    align-items: center;
+}
+.canvas_colors>.canvas_color{
+    margin-top : 60px;
+    margin-left: 1px;
+    margin-right : 1px;
+    width : 50px;
+    height : 50px;
+    border-radius:15px;
+    box-shadow : 0px 0px 5px rgba(238, 240, 243, 0.911);
+    cursor: pointer;
+}
+.button{
+    display : flex;
+    flex-direction: row;
+    margin-top : 20px;
+}
+.button> button{
+    all: unset;
+    margin-left : 7px;
+    margin-right : 7px;
+    width : 50px;
+    height : 30px;
+    background-color : gray;
+    color : white;
+    text-align : center;
+    border-radius: 8px;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    cursor:pointer;
+    opacity : 0.4;
+    transition: opacity 0.2s;
+}
+.button> button:hover{
+    opacity:0.9;
+    transition: opacity 0.2s;
+}
+.button> button:active{
+    transform: scale(0.92);
+}
+.range{
+    appearance: none;
+    background-color: beige;
+    height: 6px;
+    border-radius: 5px;
+    width : 200px;
+    box-shadow: 0px 0px 5px inset;
+    opacity : 0.4;
+    transition: opacity 0.2s;   
+    cursor: pointer;
+   
+}
+.range:hover{
+    opacity : 1;
+    cursor:pointer;
+}
+
+
