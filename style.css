@@ -81,3 +81,55 @@ canvas {
     width : 800px;
     height : 600px;
 }
+
+.forFont{
+    display : flex;
+    flex-direction: column;
+}
+
+#fontStyle{
+    
+    all:unset;
+    text-align: center;
+    background-color: gray;
+    opacity: 0.4;
+    color: white;
+    width : 50px;
+    height : 30px;
+    margin-bottom: 1px;
+    border-radius: 5px;
+}
+#fontStyle:hover{
+    opacity : 1.0;
+}
+.font-show> button{
+   
+    all:unset;
+    background-color: gray;
+    color:white;
+    text-align: center;
+    height : 30px;
+    width : 50px;
+    margin: 1px;
+    opacity : 0.6;
+    border-radius: 5px;
+}
+.font-show> button:hover{
+    opacity: 1.0;
+}
+.font-show{
+    display: flex;
+    flex-direction: column;
+}
+.font-hide {
+    display:none;
+}
+#sans-serif{
+    font-family: sans-serif;
+}
+#Arial{
+    font-family: Arial;
+}
+#Courier-New{
+    font-family: Courier New;
+}

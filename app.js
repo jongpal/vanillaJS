@@ -2,6 +2,10 @@ let inCanvas = document.getElementById("draw");
 let ctx = inCanvas.getContext('2d');
 const INIT_COLOR = 'black';
 ctx.fillStyle='white';
+
+let f = new FontFace('test', 'url(x)');
+let pickFont = 'sans-serif';
+
 const CANVAS_WIDTH = '800';
 const CANVAS_HEIGHT = '600';
 ctx.rect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
@@ -26,15 +30,15 @@ function handleMouseDown(e){
     if(isCircle === true){
         ctx.beginPath();
     }
-    if(isTexting === true){
-        var input = prompt("input text");
+    if(isTexting === true){ //for text mode
+        var input = prompt("input text");// write text in prompt
         if(input === null)
         {
-
+            
         }
         else{
             ctx.fillStyle = 'black';  
-            ctx.font = `${pixel}px serif`;
+            ctx.font = `${pixel}px ${pickFont}`; //give text size
             ctx.fillText(input, x, y);
         }
 
@@ -42,6 +46,7 @@ function handleMouseDown(e){
     }
     else if(isCircle === false && isDrawing === false){
         isDrawing = true;
+        
         ctx.beginPath();
         ctx.moveTo(x, y);
     }
@@ -50,19 +55,23 @@ function handleMouseDown(e){
 
 function handleMouseMove(e){
     if(isDrawing){
-        //console.log(e.offsetX, e.offsetY);
+        
         ctx.lineTo(e.offsetX, e.offsetY);
         ctx.stroke();
         //ctx.fill();
     }
+
 }
+
 
 function handleMouseUp(e){
     isDrawing = false;
-    console.log(isDrawing);
+   
     if(isCircle === true){
+        //set radius to draw circle
         const radius = Math.sqrt((x-e.offsetX)*(x-e.offsetX)+(y-e.offsetY)*(y-e.offsetY));
-        console.log(radius);
+        
+        //draw circle
         ctx.arc(x, y, radius, 0, 2*Math.PI);
         ctx.stroke();
     }
@@ -82,11 +91,11 @@ const range = document.getElementById("range");
 const fontsize = document.querySelector(".fontsize");
 range.addEventListener("input", handleRange);
 
+
 function handleRange(){
     const val = range.value;
     fontsize.innerText=`${val}, ${val*20}px`;
     pixel = range.value*20; //for    pixel
-    console.log(val);
     ctx.lineWidth = val;
 }
 
@@ -99,16 +108,18 @@ const arrayColors = Array.from(colorSelect);
 console.log(arrayColors);
 arrayColors.forEach(color => color.addEventListener("click", handleColorClick));
 
+//to give colors
 function handleColorClick(e)
 {
-    
     ctx.lineWidth = range.value;
+    
     ctx.strokeStyle = e.target.style.backgroundColor;
+    console.log(ctx.strokeStyle);
 }
 
 
 
-
+//give white color to erase
 const erase = document.getElementById("erase");
 //erase.setAttribute("style","background-color");
 erase.addEventListener("click", handleErase);
@@ -122,13 +133,13 @@ const reset = document.getElementById("reset");
 reset.addEventListener("click", handleReset);
 
 
-function handleReset(){
+function handleReset(){ //make canvas white to reset
     ctx.rect(0, 0 , 800, 600);
     ctx.fillStyle='white';
     ctx.fill();
 }
 
-
+//to save a drawing
 const save = document.getElementById('save');
 save.addEventListener("click", handleSave);
 
@@ -137,18 +148,17 @@ function handleSave()
 {
     
     const a = document.createElement('a');
-    const dataUrl = inCanvas.toDataURL("image/jpeg",1.0);
+    const dataUrl = inCanvas.toDataURL("image/jpeg", 1.0);//max quality :1.0
     a.href = dataUrl;
     a.download = 'mama,theregoesthatman';
-    a.click();
-    
-
+    a.click(); //click effect
+   
 }
 
 
 function handleContext(e){
     e.preventDefault(); //not showing the contextmenu 
-    console.log(e);
+   //console.log(e);
 }
 
 
@@ -156,10 +166,11 @@ function handleContext(e){
 const text = document.getElementById('text');
 text.addEventListener('click', handleTextToggle);
 
-let isTexting = false;
+let isTexting = false;  //first, set it to 'draw' mode
 
-function handleTextToggle(){
-console.log(isTexting);
+//if click occurs,
+function handleTextToggle(){ //to toggle between text and draw
+
 if(isTexting === false){
 text.innerText = 'draw';
 isTexting = true;
@@ -175,7 +186,6 @@ isTexting = false;
 isDrawing = false; //to initialize mouseup state
 inCanvas.addEventListener("mousemove", handleMouseMove);
 inCanvas.addEventListener("mouseup", handleMouseUp);
-
 }
 
 
@@ -200,5 +210,26 @@ function handleCircle(){
 
     }
         
+}
 
+//fontstyle
+const forFont = document.querySelector(".forFont");
+const fontStyle = document.getElementById("fontStyle");
+const fonts = forFont.querySelector("#fonts");
+fontStyle.addEventListener("mouseover", handleFont);
+fontStyle.addEventListener("mouseleave", handleLeave);
+fonts.addEventListener("mouseover", handleFont);
+
+//const sansSerif = fonts.querySelector("#sans-serif");
+fonts.addEventListener("click", handleSans);
+
+function handleSans(e){ 
+    pickFont = e.target.innerText; //set fontStyle
+}
+
+function handleFont(){
+    fonts.classList.remove("font-hide");
+}
+function handleLeave(){
+    fonts.classList.add("font-hide");
 }
